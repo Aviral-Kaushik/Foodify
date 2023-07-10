@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Foodify</string>
+    <string name="category">Category</string>
+    <string name="favourites">Favourites</string>
+    <string name="home">Home</string>
+    <string name="what_would_you_like_to_eat">What would you like to eat</string>
+    <string name="our_popular_item">Our Popular Item</string>
+    <string name="area">Area :</string>
+    <string name="instructions">Instructions</string>
+    <string name="meal_id">MEAL_ID</string>
+    <string name="meal_name">MEAL_NAME</string>
+    <string name="meal_thumb">MEAL_THUMB</string>
+</resources>
