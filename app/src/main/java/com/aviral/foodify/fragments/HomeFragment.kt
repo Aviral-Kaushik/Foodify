@@ -6,25 +6,30 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.aviral.foodify.R
+import com.aviral.foodify.activities.MainActivity
 import com.aviral.foodify.activities.MealActivity
+import com.aviral.foodify.adapters.CategoryAdapter
+import com.aviral.foodify.adapters.PopularItemsAdapter
 import com.aviral.foodify.databinding.FragmentHomeBinding
 import com.aviral.foodify.models.Meal
-import com.aviral.foodify.viewModels.HomeViewModel
+import com.aviral.foodify.viewModels.MainViewModel
 import com.bumptech.glide.Glide
 
 class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
-    private lateinit var homeViewModel: HomeViewModel
+    private lateinit var viewModel: MainViewModel
 
     private lateinit var randomMeal: Meal
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        homeViewModel = ViewModelProvider(this)[HomeViewModel::class.java]
+        viewModel = (activity as MainActivity).viewModel
     }
 
     override fun onCreateView(
@@ -39,8 +44,14 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        homeViewModel.getRandomMeal()
+        viewModel.getRandomMeal()
         observerRandomMeal()
+
+        viewModel.getPopularMeals()
+        observePopularMeals()
+
+        viewModel.getCategoryList()
+        observeCategoryLiveData()
 
         binding.imgRandomMeal.setOnClickListener {
             Intent(requireActivity(), MealActivity::class.java).also {
@@ -51,12 +62,53 @@ class HomeFragment : Fragment() {
             }
         }
 
+        binding.ivSearch.setOnClickListener {
+            findNavController().navigate(R.id.searchFragment)
+        }
+
 
     }
 
+    private fun observeCategoryLiveData() {
+        viewModel.observeCategoryLiveData()
+            .observe(requireActivity()) { value ->
+
+                binding.recyclerViewCategory.apply {
+                    layoutManager = GridLayoutManager(
+                        requireContext(), 3, GridLayoutManager.VERTICAL, false
+                    )
+
+                    val categoryAdapter = CategoryAdapter(value)
+
+                    adapter = categoryAdapter
+                }
+
+            }
+    }
+
+    private fun observePopularMeals() {
+        viewModel.observePopularMealsLiveData()
+            .observe(
+                requireActivity()
+            ) { value ->
+                binding.recyclerViewMealsPopular.apply {
+                    layoutManager = LinearLayoutManager(
+                        requireContext(),
+                        LinearLayoutManager.HORIZONTAL, false
+                    )
+
+                    val popularAdapter =
+                        PopularItemsAdapter(requireContext(), value, childFragmentManager)
+
+                    adapter = popularAdapter
+                }
+            }
+    }
+
     private fun observerRandomMeal() {
-        homeViewModel.observeRandomMealLiveData()
-            .observe(viewLifecycleOwner
+        viewModel.observeRandomMealLiveData()
+            .observe(
+                requireActivity()
             ) { value ->
                 Glide.with(this@HomeFragment)
                     .load(value.strMealThumb)
