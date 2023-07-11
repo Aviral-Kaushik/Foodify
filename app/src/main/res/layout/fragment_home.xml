@@ -78,9 +78,9 @@
                     android:id="@+id/img_random_meal"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:scaleType="centerCrop"
                     android:background="@color/accent"
-                    android:contentDescription="@string/our_popular_item" />
+                    android:contentDescription="@string/our_popular_item"
+                    android:scaleType="centerCrop" />
 
             </androidx.cardview.widget.CardView>
 
@@ -119,23 +119,17 @@
                 app:layout_constraintStart_toStartOf="@id/recycler_view_meals_popular"
                 app:layout_constraintTop_toBottomOf="@id/recycler_view_meals_popular" />
 
-            <androidx.cardview.widget.CardView
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view_category"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginStart="@dimen/_25sdp"
                 android:layout_marginEnd="@dimen/_25sdp"
+                android:scrollbars="none"
                 app:cardCornerRadius="@dimen/_10sdp"
-                app:cardUseCompatPadding="true"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textView4">
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recycler_view_category"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scrollbars="none" />
-
-            </androidx.cardview.widget.CardView>
+                app:layout_constraintTop_toBottomOf="@id/textView4" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

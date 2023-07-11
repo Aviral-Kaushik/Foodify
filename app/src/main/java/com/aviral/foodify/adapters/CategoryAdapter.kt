@@ -1,5 +1,6 @@
 package com.aviral.foodify.adapters
 
+import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -11,6 +12,7 @@ import com.aviral.foodify.models.Category
 import com.bumptech.glide.Glide
 
 class CategoryAdapter(
+    private val context: Context,
     private var categories: List<Category>
 ): RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
 
@@ -34,8 +36,8 @@ class CategoryAdapter(
 
         holder.itemView.setOnClickListener {
             Intent(holder.itemView.context, CategoryMealActivity::class.java).also {
-                it.putExtra(holder.itemView.context.getString(R.string.category_name_extra), categories[position].strCategory)
-                holder.itemView.context.startActivity(it)
+                it.putExtra(context.getString(R.string.category_name_extra), categories[position].strCategory)
+                context.startActivity(it)
             }
         }
 

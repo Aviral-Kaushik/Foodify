@@ -55,6 +55,9 @@ class FavouritesFragment : Fragment() {
             ) = true
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+
+                val meal = favoritesAdapter.differ.currentList[viewHolder.adapterPosition]
+
                 viewModel.deleteMeal(favoritesAdapter.differ.currentList[viewHolder.adapterPosition])
 
                 Snackbar.make(
@@ -64,7 +67,7 @@ class FavouritesFragment : Fragment() {
                 ).setAction(
                     "Undo"
                 ) {
-                    viewModel.insertMeal(favoritesAdapter.differ.currentList[viewHolder.adapterPosition])
+                    viewModel.insertMeal(meal)
                 }.show()
             }
 
@@ -82,11 +85,11 @@ class FavouritesFragment : Fragment() {
                     requireContext(), 2, GridLayoutManager.VERTICAL, false
                 )
 
-                val favouriteAdapter = FavoritesAdapter(requireContext())
+                favoritesAdapter = FavoritesAdapter(requireContext())
 
-                favouriteAdapter.differ.submitList(value)
+                favoritesAdapter.differ.submitList(value)
 
-                adapter = favouriteAdapter
+                adapter = favoritesAdapter
             }
         }
 

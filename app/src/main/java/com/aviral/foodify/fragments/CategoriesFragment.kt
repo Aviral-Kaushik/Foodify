@@ -44,10 +44,10 @@ class CategoriesFragment : Fragment() {
         ) { value ->
             binding.recyclerViewCategory.apply {
                 layoutManager = GridLayoutManager(
-                    requireContext(), 3, GridLayoutManager.VERTICAL, false
+                    requireContext(), 2, GridLayoutManager.VERTICAL, false
                 )
 
-                val categoryAdapter = CategoryAdapter(value)
+                val categoryAdapter = CategoryAdapter(requireContext(),value)
 
                 adapter = categoryAdapter
             }

@@ -28,6 +28,8 @@ class CategoryViewModel: ViewModel() {
 
                     response.body()?.let {mealsByCategoryList ->
 
+                        Log.d(tag, "onResponse: Category: ${mealsByCategoryList.meals}")
+
                         mealsByCategoryLiveData.postValue(mealsByCategoryList.meals)
 
                     }

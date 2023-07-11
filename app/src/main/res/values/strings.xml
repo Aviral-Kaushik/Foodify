@@ -18,4 +18,6 @@
     <string name="read_more">Read more ...</string>
     <string name="testtest">testtest</string>
     <string name="enter_meal_name">"Enter Meal Name . . . "</string>
+    <string name="your_favorites">Your Favorites</string>
+    <string name="explore_our_categories">Explore Our Categories</string>
 </resources>

@@ -23,7 +23,9 @@ class CategoryMealActivity : AppCompatActivity() {
 
         categoryViewModel = ViewModelProvider(this)[CategoryViewModel::class.java]
 
-        categoryViewModel.getMealsByCategory( intent.getStringExtra(getString(R.string.category_name))!!)
+        categoryViewModel.getMealsByCategory(
+            intent.getStringExtra(getString(R.string.category_name_extra))!!
+        )
         observeCategoryMealsLiveData()
 
     }
@@ -41,7 +43,8 @@ class CategoryMealActivity : AppCompatActivity() {
                     )
 
                     val categoryMealsAdapter = CategoryMealsAdapter(
-                        this@CategoryMealActivity, value)
+                        this@CategoryMealActivity, value
+                    )
 
                     adapter = categoryMealsAdapter
                 }
